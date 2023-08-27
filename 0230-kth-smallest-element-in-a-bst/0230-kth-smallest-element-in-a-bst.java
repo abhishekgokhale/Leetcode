@@ -14,24 +14,18 @@
  * }
  */
 class Solution {
-    PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> b - a);
-    int k;
+    List<Integer> nodes = new ArrayList<>();
     
     public int kthSmallest(TreeNode root, int k) {
-        this.k = k;
-        preorder(root);
-        return heap.peek();
-        
+        inorder(root);
+        return nodes.get(k-1);
     }
-    private void preorder(TreeNode node) {
+    
+    private void inorder(TreeNode node){
         if(node == null)
             return;
-        heap.add(node.val);
-        if(heap.size() > k)
-            heap.remove();
-        if(node.left != null)
-            preorder(node.left);
-        if(node.right != null)
-            preorder(node.right);
+        inorder(node.left);
+        nodes.add(node.val);
+        inorder(node.right);
     }
 }
