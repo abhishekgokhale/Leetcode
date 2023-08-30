@@ -1,25 +1,27 @@
 class Solution {
+    HashMap<String, Boolean> memo = new HashMap<>();
+    List<String> wordDict;
+    
     public boolean wordBreak(String s, List<String> wordDict) {
-        HashMap<String, Boolean> memo = new HashMap<>();
+        this.wordDict = wordDict;
+        
         for(String word: wordDict)
             memo.put(word, true);
-        
-        return recurse(s, wordDict, memo);
+        return recurse(s);
     }
     
-    private boolean recurse(String subs, List<String> wordDict, HashMap<String, Boolean> memo){
-        if(subs.equals("") || subs == null)
-            return false;
-        if(memo.containsKey(subs))
-            return memo.get(subs);
+    private boolean recurse(String s){
+        if(s == null)
+            return true;
+        if(memo.containsKey(s))
+            return memo.get(s);
         
         boolean ans = false;
         for(String word: wordDict){
-            if(subs.startsWith(word)){
-                ans = ans || recurse(subs.substring(word.length()), wordDict, memo);
-            }
+            if(s.startsWith(word))
+                ans |= recurse(s.substring(word.length()));
         }
-        memo.put(subs, ans);
-        return memo.get(subs);
+        memo.put(s, ans);
+        return ans;
     }
 }
