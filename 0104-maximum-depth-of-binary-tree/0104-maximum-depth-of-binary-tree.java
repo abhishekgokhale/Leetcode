@@ -14,14 +14,11 @@
  * }
  */
 class Solution {
-    public int recurse(TreeNode node, int depth){
-        if(node == null)
-            return depth - 1;
-        int left = recurse(node.left, depth + 1);
-        int right = recurse(node.right, depth + 1);
-        return Math.max(left, right);
-    }
     public int maxDepth(TreeNode root) {
-        return recurse(root, 1);
+        if(root == null)
+            return 0;
+        if(root.left == null && root.right == null)
+            return 1;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 }
