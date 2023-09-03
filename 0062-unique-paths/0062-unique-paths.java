@@ -4,10 +4,8 @@ class Solution {
             return 1;
         
         int[][] dp = new int[m][n];
-        for(int i = 0; i <= m-2; i++)
-            dp[i][n-1] = 1;
-        for(int j = 0; j <= n-2; j++)
-            dp[m-1][j] = 1;
+        for(int[] arr: dp)
+            Arrays.fill(arr, 1);
         
         for(int i = m-2; i >= 0; i--){
             for(int j = n-2; j >= 0; j--)
